@@ -77,9 +77,9 @@ set $COLOUREDPROMPT = 1
 # SETCOLOUR1STLINE and modify it :-)
 set $SETCOLOUR1STLINE = 0
 # set to 0 to remove display of objectivec messages (default is 1)
-set $SHOWOBJECTIVEC = 1
+set $SHOWOBJECTIVEC = 0
 # set to 0 to remove display of cpu registers (default is 1)
-set $SHOWCPUREGISTERS = 1
+set $SHOWCPUREGISTERS = 0
 # set to 1 to enable display of stack (default is 0)
 set $SHOWSTACK = 0
 # set to 1 to enable display of data window (default is 0)
@@ -100,7 +100,10 @@ set $X86FLAVOR = 0
 set $USECOLOR = 1
 # to use with remote KDP
 set $KDP64BITS = -1
-set $64BITS = 0
+set $64BITS = 1
+
+# to show source in the context window
+set $SHOWSOURCE = 1
 
 set confirm off
 set verbose off
@@ -2013,6 +2016,10 @@ end
 set $displayobjectivec = 0
 
 define context 
+    if $SHOWSOURCE == 1
+        sl
+        color_reset
+    end
     color $COLOR_SEPARATOR
     if $SHOWCPUREGISTERS == 1
 	    printf "----------------------------------------"
@@ -2154,7 +2161,6 @@ define context
 	else
 	    printf "\n"
 	end
-    color_reset
 end
 document context
 Syntax: context
@@ -3622,6 +3628,14 @@ Syntax: enabledatawin
 | Enable display of data window in the context window.
 end
 
+define enablesource
+	set $SHOWSOURCE = 1
+end
+document enablesource
+Syntax: enablesource
+| Enable display of source in the context window.
+end
+
 
 # disable commands for different displays
 define disableobjectivec
@@ -3657,6 +3671,14 @@ end
 document disabledatawin
 Syntax: disabledatawin
 | Disable display of data window in the context window.
+end
+
+define disablesource
+	set $SHOWSOURCE = 0
+end
+document disablesource
+Syntax: disablesource
+| Disable display of source information in the context window.
 end
 
 
@@ -3793,6 +3815,50 @@ document loadcmds
 Syntax: loadcmds MACHO_HEADER_START_ADDRESS
 | Dump the Mach-O load commands
 end
+
+
+######  Python Extensions Follow #########
+python
+import sys
+
+### Pretty Printers
+
+sys.path.insert(0, '/usr/local/share/gcc-4.7.3/python')
+sys.path.insert(0, '/usr/share/gdb/python')
+from libstdcxx.v6.printers import register_libstdcxx_printers
+register_libstdcxx_printers(None)
+
+sys.path.insert(0, '/home/john/othersrc/Boost-Pretty-Printer')
+from boost.v1_40.printers import register_boost_printers
+register_boost_printers(None)
+
+sys.path.insert(0, '/home/john/user')
+sys.path.insert(0, '/hrt/flexhome/john/user')
+import hrt_printers
+
+import gdb.printing
+
+sys.path.insert(0, '/home/john/othersrc/archer-mozilla')
+sys.path.insert(0, '/hrt/flexhome/john/othersrc/archer-mozilla')
+import mozilla.autoload
+
+sys.path.insert(0, '/home/john/othersrc/pygments')
+sys.path.insert(0, '/hrt/flexhome/john/othersrc/pygments')
+
+sys.path.insert(0, '/home/john/othersrc/pythongdb-gaudy')
+sys.path.insert(0, '/hrt/flexhome/john/othersrc/pythongdb-gaudy')
+
+# backtrace, no external dependencies
+import gdbaudy.bt
+
+# mozilla bt -- awesome
+import gdbaudy.mozbt
+
+# syntax-highlighting source list, needs pygments
+import gdbaudy.pyglist
+
+# sys.path.insert(0, '/home/john/othersrc/archer/archer/gdb/python/lib/gdb/command')
+import gdb.command.pahole
 
 #EOF
 
