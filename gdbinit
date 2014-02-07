@@ -2016,12 +2016,20 @@ end
 set $displayobjectivec = 0
 
 define context 
-    if $SHOWSOURCE == 1
-        sl
-        color_reset
-    end
     color $COLOR_SEPARATOR
+    if $SHOWSOURCE == 1
+	    printf "----------------------------------------"
+	    printf "----------------------------------"
+	    if ($64BITS == 1)
+	        printf "---------------------------------------------"
+	    end
+        color_bold
+        printf "[source]\n"
+        color_reset
+        sl 2 5
+    end
     if $SHOWCPUREGISTERS == 1
+        color $COLOR_SEPARATOR
 	    printf "----------------------------------------"
 	    printf "----------------------------------"
 	    if ($64BITS == 1)
@@ -2161,6 +2169,7 @@ define context
 	else
 	    printf "\n"
 	end
+    color_reset
 end
 document context
 Syntax: context
