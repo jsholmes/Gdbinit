@@ -3858,10 +3858,10 @@ sys.path.insert(0, '/home/john/othersrc/pythongdb-gaudy')
 sys.path.insert(0, '/hrt/flexhome/john/othersrc/pythongdb-gaudy')
 
 # backtrace, no external dependencies
-import gdbaudy.bt
+#import gdbaudy.bt
 
 # mozilla bt -- awesome
-import gdbaudy.mozbt
+#import gdbaudy.mozbt
 
 # syntax-highlighting source list, needs pygments
 import gdbaudy.pyglist
