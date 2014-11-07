@@ -69,13 +69,22 @@
 
 # __________________gdb options_________________
 
+set print pretty on
+set print array on
+set print elements 100
+set print asm-demangle on
+set print object on
+set print static-members off
+set print vtbl on
+
+
 # set to 1 to have ARM target debugging as default, use the "arm" command to switch inside gdb
 set $ARM = 0
 # set to 0 if you have problems with the colorized prompt - reported by Plouj with Ubuntu gdb 7.2
 set $COLOUREDPROMPT = 1
 # Colour the first line of the disassembly - default is green, if you want to change it search for
 # SETCOLOUR1STLINE and modify it :-)
-set $SETCOLOUR1STLINE = 0
+set $SETCOLOUR1STLINE = 1
 # set to 0 to remove display of objectivec messages (default is 1)
 set $SHOWOBJECTIVEC = 0
 # set to 0 to remove display of cpu registers (default is 1)
@@ -108,8 +117,8 @@ set $SHOWSOURCE = 1
 set confirm off
 set verbose off
 
-set output-radix 0x10
-set input-radix 0x10
+#set output-radix 0x10
+#set input-radix 0x10
 
 # These make gdb never pause in its output
 set height 0
