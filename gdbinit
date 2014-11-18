@@ -3874,7 +3874,11 @@ import sys
 
 ### Pretty Printers
 
+sys.path.insert(0, '/home/john/user')
+import pahole
+
 sys.path.insert(0, '/usr/local/share/gcc-4.8.2/python')
+sys.path.insert(0, '/usr/share/gcc-4.8.2/python')
 sys.path.insert(0, '/usr/share/gdb/python')
 from libstdcxx.v6.printers import register_libstdcxx_printers
 register_libstdcxx_printers(None)
@@ -3883,7 +3887,6 @@ sys.path.insert(0, '/home/john/othersrc/Boost-Pretty-Printer')
 from boost.v1_40.printers import register_boost_printers
 register_boost_printers(None)
 
-sys.path.insert(0, '/home/john/user')
 sys.path.insert(0, '/hrt/flexhome/john/user')
 import hrt_printers
 
@@ -3909,7 +3912,6 @@ sys.path.insert(0, '/hrt/flexhome/john/othersrc/pythongdb-gaudy')
 import gdbaudy.pyglist
 
 # sys.path.insert(0, '/home/john/othersrc/archer/archer/gdb/python/lib/gdb/command')
-import gdb.command.pahole
 
 #EOF
 
