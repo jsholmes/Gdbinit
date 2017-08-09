@@ -3879,7 +3879,7 @@ sys.path.insert(0, '/home/john/user/pahole-gdb')
 import pahole
 
 #sys.path.insert(0, '/usr/local/share/gcc-4.8.2/python')
-sys.path.insert(0, '/usr/share/gcc-6/python')
+sys.path.insert(0, '/usr/share/gcc-7/python')
 sys.path.insert(0, '/usr/share/gdb/python')
 from libstdcxx.v6.printers import register_libstdcxx_printers
 register_libstdcxx_printers(None)
