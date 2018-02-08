@@ -3874,15 +3874,20 @@ import sys
 
 ### Pretty Printers
 
+if os.path.isdir('/home/guillaume/pahole'):
+    sys.path.insert(0, '/home/guillaume/pahole')
+    import offsets
+    import pahole
+
 sys.path.insert(0, '/home/john/user')
-sys.path.insert(0, '/home/john/user/pahole-gdb')
-import pahole
+#sys.path.insert(0, '/home/john/user/pahole-gdb')
+#import pahole
 
 #sys.path.insert(0, '/usr/local/share/gcc-4.8.2/python')
-sys.path.insert(0, '/usr/share/gcc-7/python')
-sys.path.insert(0, '/usr/share/gdb/python')
-from libstdcxx.v6.printers import register_libstdcxx_printers
-register_libstdcxx_printers(None)
+#sys.path.insert(0, '/usr/share/gcc-7/python')
+#sys.path.insert(0, '/usr/share/gdb/python')
+#from libstdcxx.v6.printers import register_libstdcxx_printers
+#register_libstdcxx_printers(None)
 
 sys.path.insert(0, '/home/john/othersrc/Boost-Pretty-Printer')
 import boost.latest
